@@ -12,6 +12,12 @@ import {
   loadCSS,
 } from './aem.js';
 
+// Live Preview: dapreview loaded in head.html when ?dapreview present
+const hasDapreview = new URL(window.location.href).searchParams.get('dapreview');
+if (hasDapreview) {
+  document.documentElement.classList.add('dapreview');
+}
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -191,4 +197,14 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 
+// Initialize dapreview when ready (loaded in head) - listener must be ready before parent's message
+if (hasDapreview) {
+  window.addEventListener('dapreview-ready', (e) => e.detail.daPreview(loadPage), { once: true });
+}
+
 loadPage();
+
+(function da() {
+  const exp = new URL(window.location.href).searchParams.get('daexperiment');
+  if (exp) import('https://da.live/nx/public/plugins/exp/exp.js');
+}());
