@@ -197,9 +197,11 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 
-// Initialize dapreview when ready (loaded in head) - listener must be ready before parent's message
+// Initialize dapreview when ready (loaded in head or 404) - handle race with event or stored ref
 if (hasDapreview) {
-  window.addEventListener('dapreview-ready', (e) => e.detail.daPreview(loadPage), { once: true });
+  const initDapreview = (daPreview) => daPreview(loadPage);
+  window.addEventListener('dapreview-ready', (e) => initDapreview(e.detail.daPreview), { once: true });
+  if (window.__daPreview) initDapreview(window.__daPreview); // event may have fired before listener
 }
 
 loadPage();

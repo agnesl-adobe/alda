@@ -7,6 +7,7 @@
 <script nonce="aem" type="module">
   if (new URL(window.location.href).searchParams.get('dapreview')) {
     const { default: daPreview } = await import('https://da.live/scripts/dapreview.js');
+    window.__daPreview = daPreview;
     window.dispatchEvent(new CustomEvent('dapreview-ready', { detail: { daPreview } }));
   }
 </script>
