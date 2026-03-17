@@ -35,8 +35,11 @@ function buildHeroBlock(main) {
     }
     const firstSection = main.querySelector(':scope > div');
     const heroLinks = firstSection?.querySelectorAll('a[href]') || [];
-    // eslint-disable-next-line no-bitwise -- compareDocumentPosition returns bitmask
-    const isAfterH1 = (el) => (h1.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+    const isAfterH1 = (el) => {
+      const pos = h1.compareDocumentPosition(el);
+      // eslint-disable-next-line no-bitwise -- compareDocumentPosition returns bitmask
+      return (pos & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+    };
     let ctaLink = [...heroLinks].find((a) => !h1.contains(a) && isAfterH1(a)) || null;
     // If link is inside h1 (e.g. same line in doc), extract it for use as CTA
     if (!ctaLink) {
