@@ -112,6 +112,7 @@ const setupUEEventHandlers = () => {
       if (blockEl) {
         const block = blockEl.getAttribute('data-aue-component');
         const index = element.getAttribute('data-slide-index');
+        let tabBtn;
 
         switch (block) {
           case 'accordion':
@@ -139,9 +140,8 @@ const setupUEEventHandlers = () => {
             blockEl.querySelector('.tabs-list')?.querySelectorAll('button').forEach((btn) => {
               btn.setAttribute('aria-selected', false);
             });
-            // eslint-disable-next-line no-case-declarations
-            const tabButton = blockEl.querySelector(`[aria-controls=${element?.id}]`);
-            if (tabButton) tabButton.setAttribute('aria-selected', true);
+            tabBtn = blockEl.querySelector(`[aria-controls=${element?.id}]`);
+            if (tabBtn) tabBtn.setAttribute('aria-selected', true);
             break;
           }
           default:

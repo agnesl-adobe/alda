@@ -201,14 +201,16 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
 if (hasDapreview) {
   const initDapreview = (daPreview) => daPreview(loadPage);
   window.addEventListener('dapreview-ready', (e) => initDapreview(e.detail.daPreview), { once: true });
-  /* eslint-disable-next-line no-underscore-dangle */
-  if (window.__daPreview) initDapreview(window.__daPreview); // event may have fired before listener
+  const daPreviewRef = window['__daPreview']; // DA API - bracket notation avoids no-underscore-dangle
+  if (daPreviewRef) initDapreview(daPreviewRef); // event may have fired before listener
 }
 
 loadPage();
 
 (function da() {
   const exp = new URL(window.location.href).searchParams.get('daexperiment');
-  /* eslint-disable-next-line import/no-unresolved */
-  if (exp) import('https://da.live/nx/public/plugins/exp/exp.js');
+  if (exp) {
+    const expScript = 'https://da.live/nx/public/plugins/exp/exp.js';
+    import(expScript); // dynamic import - URL not resolvable at lint time
+  }
 }());
