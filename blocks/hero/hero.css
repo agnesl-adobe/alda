@@ -37,6 +37,7 @@
 .hero a.button.accent {
   --hero-cta-orange: #eb5c0c;
   --hero-cta-hover: #d35400;
+
   background-color: transparent;
   border-color: var(--hero-cta-orange);
   color: var(--hero-cta-orange);
