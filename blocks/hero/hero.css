@@ -21,19 +21,22 @@
   margin-bottom: 0;
 }
 
-.hero .hero-cta {
-  --hero-cta-bg: #eb5c0c;
-  --hero-cta-hover: #d35400;
-  background-color: var(--hero-cta-bg);
-  border-color: var(--hero-cta-bg);
+/* Hero CTA: orange accent for buttons in hero */
+.hero a.button.accent {
+  --button-accent-bg: #eb5c0c;
+  --button-accent-hover: #d35400;
+  background-color: var(--button-accent-bg);
+  border-color: var(--button-accent-bg);
   color: white;
+  text-decoration: none;
 }
 
-.hero .hero-cta:hover,
-.hero .hero-cta:focus-visible {
-  background-color: var(--hero-cta-hover);
-  border-color: var(--hero-cta-hover);
+.hero a.button.accent:hover,
+.hero a.button.accent:focus-visible {
+  background-color: var(--button-accent-hover);
+  border-color: var(--button-accent-hover);
   color: white;
+  text-decoration: none;
 }
 
 .hero picture {

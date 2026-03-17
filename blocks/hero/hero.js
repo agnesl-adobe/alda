@@ -15,7 +15,6 @@ export default function decorate(block) {
         block.appendChild(el);
         // Style CTA link as orange hero button
         if (el.tagName === 'A' && el.href) {
-          el.classList.add('button', 'hero-cta');
           const wrapper = document.createElement('p');
           wrapper.className = 'button-wrapper';
           wrapper.appendChild(el);

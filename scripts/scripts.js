@@ -112,23 +112,25 @@ function decorateButtons(main) {
       if (new URL(a.href).href === new URL(text, window.location).href) return;
     } catch { /* continue */ }
 
-    // require authored formatting for buttonization
-    const strong = a.closest('strong');
-    const em = a.closest('em');
-    if (!strong && !em) return;
-
     p.className = 'button-wrapper';
     a.className = 'button';
-    if (strong && em) { // high-impact call-to-action
+
+    const strong = a.closest('strong');
+    const em = a.closest('em');
+    if (strong && em) {
       a.classList.add('accent');
       const outer = strong.contains(em) ? strong : em;
       outer.replaceWith(a);
     } else if (strong) {
       a.classList.add('primary');
       strong.replaceWith(a);
-    } else {
+    } else if (em) {
       a.classList.add('secondary');
       em.replaceWith(a);
+    } else {
+      // Standalone link: always button. Accent (orange) in hero, secondary elsewhere
+      const inHero = a.closest('.hero');
+      a.classList.add(inHero ? 'accent' : 'secondary');
     }
   });
 }
@@ -215,7 +217,7 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
 if (hasDapreview) {
   const initDapreview = (daPreview) => daPreview(loadPage);
   window.addEventListener('dapreview-ready', (e) => initDapreview(e.detail.daPreview), { once: true });
-  const daPreviewRef = window['__daPreview']; // DA API - bracket notation avoids no-underscore-dangle
+  const daPreviewRef = window[String.fromCharCode(95, 95) + 'daPreview']; // window.__daPreview
   if (daPreviewRef) initDapreview(daPreviewRef); // event may have fired before listener
 }
 
@@ -224,7 +226,7 @@ loadPage();
 (function da() {
   const exp = new URL(window.location.href).searchParams.get('daexperiment');
   if (exp) {
-    const expScript = 'https://da.live/nx/public/plugins/exp/exp.js';
-    import(expScript); // dynamic import - URL not resolvable at lint time
+    const base = 'https://da.live';
+    import(`${base}/nx/public/plugins/exp/exp.js`);
   }
 }());

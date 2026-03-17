@@ -604,11 +604,11 @@ async function loadHeader(header) {
  * @param footer footer element
  */
 async function loadFooter(footer) {
-  if (!footer) return;
+  if (!footer) return Promise.resolve();
   const footerBlock = buildBlock('footer', '');
   footer.append(footerBlock);
   decorateBlock(footerBlock);
-  await loadBlock(footerBlock);
+  return loadBlock(footerBlock);
 }
 
 /**
