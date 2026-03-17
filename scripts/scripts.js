@@ -21,6 +21,7 @@ if (hasDapreview) {
 
 /**
  * Builds hero block and prepends to main in a new section.
+ * Includes first link from hero section as CTA button (e.g. "Adventures near you").
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
@@ -32,8 +33,20 @@ function buildHeroBlock(main) {
     if (h1.closest('.hero') || picture.closest('.hero')) {
       return; // Don't create a duplicate hero block
     }
+    const firstSection = main.querySelector(':scope > div');
+    const heroLinks = firstSection?.querySelectorAll('a[href]') || [];
+    let ctaLink = [...heroLinks].find((a) => !h1.contains(a) && (h1.compareDocumentPosition(a) & Node.DOCUMENT_POSITION_FOLLOWING)) || null;
+    // If link is inside h1 (e.g. same line in doc), extract it for use as CTA
+    if (!ctaLink) {
+      const linkInH1 = h1.querySelector('a[href]');
+      if (linkInH1) {
+        linkInH1.remove();
+        ctaLink = linkInH1;
+      }
+    }
+    const elems = [picture, h1, ...(ctaLink ? [ctaLink] : [])];
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(buildBlock('hero', { elems }));
     main.prepend(section);
   }
 }

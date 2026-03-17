@@ -4,14 +4,23 @@
  * @param {Element} block The hero block element
  */
 export default function decorate(block) {
-  // Hero structure (picture + h1) is created by buildHeroBlock
-  // Ensure picture and h1 are direct children of .hero for layout
+  // Hero structure (picture + h1 + optional CTA link) is created by buildHeroBlock
+  // Ensure picture, h1, and CTA are direct children of .hero for layout
   const row = block.querySelector(':scope > div');
   if (row) {
     const col = row.querySelector(':scope > div');
     if (col) {
       while (col.firstElementChild) {
-        block.appendChild(col.firstElementChild);
+        const el = col.firstElementChild;
+        block.appendChild(el);
+        // Style CTA link as orange hero button
+        if (el.tagName === 'A' && el.href) {
+          el.classList.add('button', 'hero-cta');
+          const wrapper = document.createElement('p');
+          wrapper.className = 'button-wrapper';
+          wrapper.appendChild(el);
+          block.appendChild(wrapper);
+        }
       }
       row.remove();
     }

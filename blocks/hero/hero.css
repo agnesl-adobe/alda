@@ -16,6 +16,26 @@
   color: var(--background-color);
 }
 
+.hero .button-wrapper {
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+.hero .hero-cta {
+  --hero-cta-bg: #eb5c0c;
+  --hero-cta-hover: #d35400;
+  background-color: var(--hero-cta-bg);
+  border-color: var(--hero-cta-bg);
+  color: white;
+}
+
+.hero .hero-cta:hover,
+.hero .hero-cta:focus-visible {
+  background-color: var(--hero-cta-hover);
+  border-color: var(--hero-cta-hover);
+  color: white;
+}
+
 .hero picture {
   position: absolute;
   z-index: -1;
