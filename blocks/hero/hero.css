@@ -11,8 +11,8 @@
 
 .hero .hero-content {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 1em;
   max-width: 1200px;
   margin-left: auto;
