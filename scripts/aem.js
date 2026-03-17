@@ -608,7 +608,7 @@ async function loadFooter(footer) {
   const footerBlock = buildBlock('footer', '');
   footer.append(footerBlock);
   decorateBlock(footerBlock);
-  return loadBlock(footerBlock);
+  await loadBlock(footerBlock);
 }
 
 /**

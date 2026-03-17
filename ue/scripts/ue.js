@@ -127,7 +127,7 @@ const setupUEEventHandlers = () => {
               }
             }
             break;
-          case 'tabs':
+          case 'tabs': {
             if (element === block) {
               return;
             }
@@ -141,6 +141,7 @@ const setupUEEventHandlers = () => {
             const tabButton = blockEl.querySelector(`[aria-controls=${element?.id}]`);
             if (tabButton) tabButton.setAttribute('aria-selected', true);
             break;
+          }
           default:
             break;
         }
