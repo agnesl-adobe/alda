@@ -35,7 +35,9 @@ function buildHeroBlock(main) {
     }
     const firstSection = main.querySelector(':scope > div');
     const heroLinks = firstSection?.querySelectorAll('a[href]') || [];
-    let ctaLink = [...heroLinks].find((a) => !h1.contains(a) && (h1.compareDocumentPosition(a) & Node.DOCUMENT_POSITION_FOLLOWING)) || null;
+    // eslint-disable-next-line no-bitwise -- compareDocumentPosition returns bitmask
+    const isAfterH1 = (el) => (h1.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+    let ctaLink = [...heroLinks].find((a) => !h1.contains(a) && isAfterH1(a)) || null;
     // If link is inside h1 (e.g. same line in doc), extract it for use as CTA
     if (!ctaLink) {
       const linkInH1 = h1.querySelector('a[href]');
@@ -217,7 +219,7 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
 if (hasDapreview) {
   const initDapreview = (daPreview) => daPreview(loadPage);
   window.addEventListener('dapreview-ready', (e) => initDapreview(e.detail.daPreview), { once: true });
-  const daPreviewRef = window[String.fromCharCode(95, 95) + 'daPreview']; // window.__daPreview
+  const daPreviewRef = window[`${String.fromCharCode(95, 95)}daPreview`]; // window.__daPreview
   if (daPreviewRef) initDapreview(daPreviewRef); // event may have fired before listener
 }
 
