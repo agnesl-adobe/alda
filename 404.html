@@ -9,6 +9,10 @@
   >
   <title>Page not found</title>
   <script nonce="aem" type="text/javascript">
+    // Redirect /index to / (index is served at root in Edge Delivery)
+    if (window.location.pathname === '/index' || window.location.pathname === '/index/') {
+      window.location.replace(window.location.origin + '/' + (window.location.search || ''));
+    }
     window.isErrorPage = true;
     window.errorCode = '404';
   </script>
