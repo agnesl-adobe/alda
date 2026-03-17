@@ -603,6 +603,7 @@ async function loadHeader(header) {
  * @param footer footer element
  * @returns {Promise}
  */
+/* eslint-disable consistent-return */
 async function loadFooter(footer) {
   if (!footer) return Promise.resolve();
   const footerBlock = buildBlock('footer', '');

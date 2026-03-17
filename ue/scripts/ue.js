@@ -139,6 +139,7 @@ const setupUEEventHandlers = () => {
             blockEl.querySelector('.tabs-list')?.querySelectorAll('button').forEach((btn) => {
               btn.setAttribute('aria-selected', false);
             });
+            // eslint-disable-next-line no-case-declarations
             const tabButton = blockEl.querySelector(`[aria-controls=${element?.id}]`);
             if (tabButton) tabButton.setAttribute('aria-selected', true);
             break;
