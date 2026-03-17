@@ -131,9 +131,7 @@ const setupUEEventHandlers = () => {
             }
             break;
           case 'tabs': {
-            if (element === block) {
-              return;
-            }
+            if (element === block) return;
             blockEl.querySelectorAll('[role=tabpanel]').forEach((panel) => {
               panel.setAttribute('aria-hidden', true);
             });
