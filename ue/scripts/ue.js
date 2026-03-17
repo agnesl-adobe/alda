@@ -24,7 +24,7 @@ const setupObservers = () => {
         const type = mutation.target.classList.contains('cards-card-image') ? 'cards-image' : mutation.target.attributes['data-aue-component']?.value;
 
         switch (type) {
-          case 'cards':
+          case 'cards': {
             // handle card div > li replacements
             if (addedElements.length === 1 && addedElements[0].tagName === 'UL') {
               const ulEl = addedElements[0];
@@ -36,7 +36,8 @@ const setupObservers = () => {
               });
             }
             break;
-          case 'cards-image':
+          }
+          case 'cards-image': {
             // handle card-image picture replacements
             if (mutation.target.classList.contains('cards-card-image')) {
               const addedPictureEl = [...mutation.addedNodes].filter((node) => node.tagName === 'PICTURE');
@@ -50,13 +51,14 @@ const setupObservers = () => {
               }
             }
             break;
+          }
           case 'accordion':
             if (addedElements.length === 1 && addedElements[0].tagName === 'DETAILS') {
               moveInstrumentation(removedElements[0], addedElements[0]);
               moveInstrumentation(removedElements[0].querySelector('div'), addedElements[0].querySelector('summary'));
             }
             break;
-          case 'carousel':
+          case 'carousel': {
             if (removedElements.length === 1 && removedElements[0].attributes['data-aue-component']?.value === 'carousel-item') {
               const resourceAttr = removedElements[0].getAttribute('data-aue-resource');
               if (resourceAttr) {
@@ -72,6 +74,7 @@ const setupObservers = () => {
               }
             }
             break;
+          }
           default:
             break;
         }
