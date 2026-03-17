@@ -49,7 +49,16 @@ function buildHeroBlock(main) {
         ctaLink = linkInH1;
       }
     }
-    const elems = [picture, h1, ...(ctaLink ? [ctaLink] : [])];
+    const subheadings = firstSection?.querySelectorAll('h2, h3') || [];
+    const isBefore = (el, other) => {
+      const pos = el.compareDocumentPosition(other);
+      // eslint-disable-next-line no-bitwise -- compareDocumentPosition returns bitmask
+      return (pos & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+    };
+    const subheading = [...subheadings].find((el) => isAfterH1(el)
+      && (!ctaLink || isBefore(el, ctaLink))) || null;
+    const contentElems = [h1, ...(subheading ? [subheading] : []), ...(ctaLink ? [ctaLink] : [])];
+    const elems = [picture, ...contentElems];
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems }));
     main.prepend(section);
