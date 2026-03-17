@@ -5,6 +5,10 @@
 
 .hero {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 40px 24px;
   min-height: 300px;
 }
@@ -15,8 +19,8 @@
   align-items: flex-start;
   gap: 1em;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  margin-top: 2em;
 }
 
 .hero h1 {
