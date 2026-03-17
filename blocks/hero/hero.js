@@ -5,22 +5,28 @@
  */
 export default function decorate(block) {
   // Hero structure (picture + h1 + optional CTA link) is created by buildHeroBlock
-  // Ensure picture, h1, and CTA are direct children of .hero for layout
+  // Picture stays as background; wrap h1 and CTA in .hero-content for inline layout
   const row = block.querySelector(':scope > div');
   if (row) {
     const col = row.querySelector(':scope > div');
     if (col) {
+      const heroContent = document.createElement('div');
+      heroContent.className = 'hero-content';
+
       while (col.firstElementChild) {
         const el = col.firstElementChild;
-        block.appendChild(el);
-        // Style CTA link as orange hero button
-        if (el.tagName === 'A' && el.href) {
+        if (el.tagName === 'PICTURE') {
+          block.appendChild(el);
+        } else if (el.tagName === 'A' && el.href) {
           const wrapper = document.createElement('p');
           wrapper.className = 'button-wrapper';
           wrapper.appendChild(el);
-          block.appendChild(wrapper);
+          heroContent.appendChild(wrapper);
+        } else {
+          heroContent.appendChild(el);
         }
       }
+      block.appendChild(heroContent);
       row.remove();
     }
   }
