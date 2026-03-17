@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle, import/no-unresolved */
 import {
   buildBlock,
   loadHeader,

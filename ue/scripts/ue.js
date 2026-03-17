@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /*
  * Copyright 2024 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -121,7 +122,7 @@ const setupUEEventHandlers = () => {
             });
             element.open = true;
             break;
-          case 'carousel':
+          case 'carousel': {
             if (index) {
               try {
                 const { showSlide } = await import(`${window.hlx.codeBasePath}/blocks/carousel/carousel.js`);
@@ -131,6 +132,7 @@ const setupUEEventHandlers = () => {
               }
             }
             break;
+          }
           case 'tabs': {
             if (element === block) return;
             blockEl.querySelectorAll('[role=tabpanel]').forEach((panel) => {
